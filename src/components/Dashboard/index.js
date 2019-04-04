@@ -22,7 +22,7 @@ export default class Dashboard extends Component {
 
   getMovies = () => {
     const { page, movies } = this.state;
-    const url = `https://api.themoviedb.org/3/discover/movie?api_key=1336424bdd2cae85cdd6731e1b99df87&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
+    const url = `https://api.themoviedb.org/3/discover/movie?api_key=${process.env.REACT_APP_API_KEY}&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
     this.setState({isLoading: true});
     fetch(url)
     .then(res => res.json())
