@@ -10,6 +10,7 @@ export default class Dashboard extends Component {
       page: 1,
       totalPages: null,
       scrolling: false,
+      isLoading: false,
     }
   }
 
@@ -22,13 +23,14 @@ export default class Dashboard extends Component {
   getMovies = () => {
     const { page, movies } = this.state;
     const url = `https://api.themoviedb.org/3/discover/movie?api_key=1336424bdd2cae85cdd6731e1b99df87&language=en-US&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}`;
-
+    this.setState({isLoading: true});
     fetch(url)
     .then(res => res.json())
     .then(data => this.setState({ 
       movies : [...movies,...data.results],
       scrolling: false,
-      totalPages: data.total_pages
+      totalPages: data.total_pages,
+      isLoading: false,
     }))
   }
 
@@ -54,12 +56,10 @@ export default class Dashboard extends Component {
     return (
       <div className="images-wrap">
         {
-            this.state.movies.map(movie => {
-            const imgsrc = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
-            return (
-                  <Image key={movie.id} src={imgsrc}/>
-                  )}
-            ) 
+          this.state.movies.map(movie => {
+          const imgsrc = `https://image.tmdb.org/t/p/w300/${movie.poster_path}`
+          return <Image key={movie.id} src={imgsrc}/>
+          }) 
         }
       </div>
     )
