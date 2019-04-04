@@ -1,8 +1,8 @@
 import React from 'react';
-import Hello from './Hello';
 import { shallow } from 'enzyme';
+import App from './';
 
-it('renders', () => {
-  const wrapper = shallow(<Hello name="Jack" />);
-  expect(wrapper.find('p').text()).toEqual('Hello, Jack!');
-});
+it('renders a dashboard', () => {
+  const wrapper = shallow(<App />)
+  expect(wrapper).toMatchSnapshot();
+})
